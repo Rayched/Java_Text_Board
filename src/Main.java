@@ -2,12 +2,11 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("=== 게시판 v 0.1.3 ===");
+        System.out.println("=== 게시판 v 0.1.4 ===");
         System.out.println("=== 프로그램 시작 ===");
 
-        int articleLastId = 0;
-        //마지막으로 작성한 게시물 번호를 저장하는 변수
-        //처음 시작할 때, 작성한 게시물의 수는 0개이다.
+        int LastId = 0;
+        //변수 LastId 선언하고, 값을 0으로 초기화
 
         while(true){
             Scanner cmd = new Scanner(System.in);
@@ -27,23 +26,21 @@ public class Main {
                 //Article 객체의 String형 변수 Body에 입력받은 명령 저장 (내용)
                 article.Body = cmd.nextLine();
 
-                int id = ++ articleLastId;
-                //게시물의 번호 역할을 할, int형 변수 id 선언
-                //전위 연산자는 먼저 값을 증감하고 실행하기 때문에
-                //실질적으로 변수 articleLastId에 담기는 값은 1 증가한 값이다.
-                //++ articleLastId = 0 → 1
-                //따라서 변수 id에 담기는 값은 정수 1이다.
-                //그리고 게시물 등록을 한번 더 하면
-                //'++ articleLastId'에 의해서
-                //articleLastId에 담긴 현재 값 1이 2로 증가되어
-                //변수 id에 저장된다.
+                int id = ++ LastId;
+                //정수형 변수 id 선언
+                //전위 연산자에 의해
+                //LastId의 현재 값 0에서 1로 증가된다.
+                //그리고 증가된 값 1이 변수 id에 저장된다.
+                //이후 게시물 작성 명령어를 다시 실행해도
+                //변수 LastId의 값이 초기화되지 않기 때문에 (LastId는 while문 외부에서 선언하였음)
+                //게시물이 작성될 때 마다, 게시물 번호가 1 씩 증가하게 된다.
 
                 System.out.printf("%d번 게시물이 등록되었습니다.\n", id);
 
                 System.out.printf("제목: %s\n", article.Title);
                 System.out.printf("내용: %s\n", article.Body);
             }
-            else if(text.equals("- Commands")){
+            else if(text.equals("-commands")){
                 System.out.println("사용 가능한 명령어 목록");
                 System.out.println("===================");
                 System.out.println("/usr/article/write : 게시물 작성 명령");
@@ -75,4 +72,8 @@ class Article {
  *
  * 2. 명령어 목록 생성 (- Commands)
  *  - 현재 사용가능한 명령어의 목록을 보여줌.
+ *
+ * 2022.12.09 작업 목록
+ * - 게시물 번호가 어떤 원리로 증가하는 지에 대한
+ *   추가 설명 작성 (변수 id와 LastId의 관계)
  */
